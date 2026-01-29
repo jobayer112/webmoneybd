@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webvisit Earn - Earn Money by Watching Ads</title>
+    
+    <!-- পপোনডার এডস স্ক্রিপ্ট -->
+    <script src="https://progenybanquet.com/b5/8c/42/b58c420459bad0fb7b33cd556198ede9.js"></script>
+    
+    <!-- Monetag SDK -->
+    <script src='//libtl.com/sdk.js' data-zone='10537827' data-sdk='show_10537827'></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .dark-bg { background-color: #0f172a; }
+        .card-bg { 
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            border-radius: 16px;
+        }
+        
+        .gradient-text { 
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+        
+        .btn-accent { 
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-accent:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-accent:active { 
+            transform: translateY(0);
+        }
+        
+        .input-field { 
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus { 
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .main-page { display: none; }
+        .main-page.active { 
+            display: flex; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .sub-page { display: none; }
+        .sub-page.active { 
+            display: block; 
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .bottom-nav {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .bottom-nav a.active { 
+            color: #3b82f6;
+            position: relative;
+        }
+        
+        .bottom-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+        
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #0f172a;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .website-task-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .website-task-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .task-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .task-content {
+            padding: 1rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, 
+                rgba(59, 130, 246, 0.15) 0%, 
+                rgba(139, 92, 246, 0.15) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+        }
+        
+        .ad-card {
+            background: linear-gradient(135deg, 
+                rgba(251, 191, 36, 0.15) 0%, 
+                rgba(245, 158, 11, 0.15) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 16px;
+        }
+        
+        .ad-card.green {
+            background: linear-gradient(135deg, 
+                rgba(34, 197, 94, 0.15) 0%, 
+                rgba(21, 128, 61, 0.15) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .website-banner-card {
+            background: linear-gradient(145deg, 
+                rgba(59, 130, 246, 0.15) 0%, 
+                rgba(99, 102, 241, 0.15) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .website-banner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .website-banner-card.completed {
+            background: linear-gradient(145deg, 
+                rgba(34, 197, 94, 0.15) 0%, 
+                rgba(21, 128, 61, 0.15) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            opacity: 0.8;
+        }
+        
+        .visit-count-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .visit-count-badge.completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #10b981;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes popUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .popup-anim { animation: popUp 0.3s ease-out; }
+        .pulse-anim { animation: pulse 2s infinite; }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid #3b82f6;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* ছোট ওয়েলকাম মোডাল স্টাইল */
+        .small-welcome-modal .modal-content {
+            max-width: 320px;
+            width: 90%;
+            padding: 1.5rem;
+        }
+        
+        .small-welcome-modal .welcome-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            padding: 0.75rem;
+        }
+        
+        .small-welcome-modal .welcome-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .small-welcome-modal .welcome-subtitle {
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .small-welcome-modal .feature-box {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+        }
+        
+        .small-welcome-modal .feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+        
+        .small-welcome-modal .feature-icon i {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .small-welcome-modal .feature-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .small-welcome-modal .feature-desc {
+            font-size: 0.75rem;
+        }
+        
+        .small-welcome-modal .referral-box {
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+        
+        .small-welcome-modal .start-btn {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="max-w-md mx-auto">
+
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 dark-bg bg-opacity-90 flex flex-col items-center justify-center z-50">
+        <div class="spinner mb-4"></div>
+        <div class="text-center">
+            <h2 class="text-xl font-bold gradient-text mb-2">Webvisit Earn</h2>
+            <p class="text-gray-400">Loading your dashboard...</p>
+        </div>
+    </div>
+
+    <!-- Welcome Modal - ছোট সংস্করণ -->
+    <div id="welcome-modal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[60] hidden p-4 small-welcome-modal">
+        <div class="card-bg modal-content relative popup-anim border border-white/10">
+            <button onclick="closeWelcomeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="text-center mb-4">
+                <div class="welcome-icon gradient-bg flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="dollar-sign" class="w-8 h-8 text-white"></i>
+                </div>
+                <h2 class="welcome-title font-bold gradient-text">Welcome to Webvisit Earn!</h2>
+                <p class="welcome-subtitle text-gray-300">Turn spare time into money!</p>
+            </div>
+            
+            <div class="space-y-2 mb-4">
+                <div class="feature-box flex items-center space-x-3 bg-white/5">
+                    <div class="feature-icon bg-green-500/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="check-circle" class="text-green-400"></i>
+                    </div>
+                    <div>
+                        <p class="feature-title">Easy Tasks</p>
+                        <p class="feature-desc text-gray-400">Just visit websites</p>
+                    </div>
+                </div>
+                
+                <div class="feature-box flex items-center space-x-3 bg-white/5">
+                    <div class="feature-icon bg-blue-500/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="users" class="text-blue-400"></i>
+                    </div>
+                    <div>
+                        <p class="feature-title">Referral Bonus</p>
+                        <p class="feature-desc text-gray-400">Earn $1 per referral</p>
+                    </div>
+                </div>
+                
+                <div class="feature-box flex items-center space-x-3 bg-white/5">
+                    <div class="feature-icon bg-purple-500/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="zap" class="text-purple-400"></i>
+                    </div>
+                    <div>
+                        <p class="feature-title">Instant Withdrawal</p>
+                        <p class="feature-desc text-gray-400">Withdraw anytime</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="referral-box text-center bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+                <p class="font-bold gradient-text text-sm mb-1">Share with friends!</p>
+                <a href="https://t.me/webmoneybot_bot" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors text-xs">
+                    <i data-lucide="send" class="w-3 h-3"></i>
+                    https://t.me/webmoneybot_bot
+                </a>
+            </div>
+            
+            <button onclick="closeWelcomeModal()" class="w-full start-btn btn-accent font-bold">
+                Start Earning Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Auth Section -->
+    <div id="auth-section" class="min-h-screen p-6 flex-col justify-center main-page">
+        <div class="text-center mb-8">
+            <div class="w-20 h-20 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="dollar-sign" class="w-10 h-10 text-white"></i>
+            </div>
+            <h1 class="text-3xl font-bold mb-2 gradient-text">Webvisit Earn</h1>
+            <p class="text-gray-400">Earn Money by Visiting Websites & Watching Ads</p>
+        </div>
+        
+        <div id="auth-container" class="space-y-4">
+            <div id="login-view">
+                <div class="space-y-3">
+                    <div>
+                        <input id="login-email" type="email" placeholder="Email Address" class="w-full p-3 rounded-xl input-field text-sm">
+                    </div>
+                    <div>
+                        <input id="login-password" type="password" placeholder="Password" class="w-full p-3 rounded-xl input-field text-sm">
+                    </div>
+                    <button id="login-btn" class="w-full p-3 rounded-xl btn-accent text-base font-bold">
+                        Login to Account
+                    </button>
+                </div>
+                <p class="text-center text-gray-400 mt-4 text-sm">
+                    Don't have an account? 
+                    <a href="#" id="show-signup" class="font-semibold gradient-text">Create Account</a>
+                </p>
+            </div>
+            
+            <div id="signup-view" class="hidden">
+                <div class="space-y-3">
+                    <div>
+                        <input id="signup-name" type="text" placeholder="Full Name" class="w-full p-3 rounded-xl input-field text-sm">
+                    </div>
+                    <div>
+                        <input id="signup-email" type="email" placeholder="Email Address" class="w-full p-3 rounded-xl input-field text-sm">
+                    </div>
+                    <div>
+                        <input id="signup-password" type="password" placeholder="Create Password" class="w-full p-3 rounded-xl input-field text-sm">
+                    </div>
+                    <button id="signup-btn" class="w-full p-3 rounded-xl btn-accent text-base font-bold">
+                        Create Account
+                    </button>
+                </div>
+                <p class="text-center text-gray-400 mt-4 text-sm">
+                    Already have an account? 
+                    <a href="#" id="show-login" class="font-semibold gradient-text">Login Here</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <p class="text-xs text-gray-500">By continuing, you agree to our Terms & Privacy Policy</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-container" class="min-h-screen flex-col main-page">
+        <!-- Header -->
+        <header class="sticky top-0 z-20 p-4 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
+                        <i data-lucide="dollar-sign" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold gradient-text">Webvisit Earn</h1>
+                        <p class="text-xs text-gray-400">Earn Money Online</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div id="notification-bell" class="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <div id="notification-dot" class="notification-dot"></div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer" onclick="navigateTo('profile-page')">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow p-4 pb-24">
+            <!-- Home Page -->
+            <div id="home-page" class="space-y-5 sub-page active">
+                <!-- Balance Card - ছোট সংস্করণ -->
+                <div class="card-bg p-5 rounded-2xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-gray-400 text-xs mb-1">Total Balance</p>
+                            <p class="text-3xl font-bold">$<span id="coin-balance">0.00</span></p>
+                            <p class="text-xs text-gray-400 mt-1">≈ <span id="coin-balance-coins">0</span> Coins</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="inline-flex items-center px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i>
+                                Active
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="text-center p-3 bg-white/5 rounded-xl">
+                            <p class="text-xl font-bold text-blue-400" id="tasks-done-count">0</p>
+                            <p class="text-xs text-gray-400">Today's Tasks</p>
+                            <div class="text-xs text-gray-500 mt-1">
+                                <span id="max-tasks">100</span> tasks available
+                            </div>
+                        </div>
+                        <div class="text-center p-3 bg-white/5 rounded-xl">
+                            <p class="text-xl font-bold text-green-400" id="today-earnings">$0</p>
+                            <p class="text-xs text-gray-400">Today's Earnings</p>
+                            <div class="text-xs text-gray-500 mt-1" id="tasks-left-count">
+                                0 tasks remaining
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions - ছোট সংস্করণ -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button id="home-withdraw-btn" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center mb-2">
+                            <i data-lucide="wallet" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-semibold text-sm">Withdraw</span>
+                        <span class="text-xs text-gray-400 mt-1">Get your earnings</span>
+                    </button>
+                    
+                    <button onclick="navigateTo('refer-page')" class="card-bg p-4 rounded-xl flex flex-col items-center justify-center hover:bg-white/5 transition-colors">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center mb-2">
+                            <i data-lucide="users" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-semibold text-sm">Refer & Earn</span>
+                        <span class="text-xs text-gray-400 mt-1">Invite friends</span>
+                    </button>
+                </div>
+
+                <!-- Website Visit Tasks - Banner Style (ছোট সংস্করণ) -->
+                <section>
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-bold">Website Visit Tasks</h2>
+                        <div class="text-xs text-gray-400">
+                            <span id="total-visits-count">0</span>/<span id="total-max-visits">100</span> visits
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3" id="website-tasks-container">
+                        <!-- Dynamic content will be loaded here in banner style -->
+                    </div>
+                </section>
+
+                <!-- Ad Rewards Section - ছোট সংস্করণ -->
+                <section>
+                    <h2 class="text-base font-bold mb-3">Watch & Earn</h2>
+                    
+                    <div class="space-y-3">
+                        <!-- Short Ad Card -->
+                        <div class="ad-card p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
+                                        <i data-lucide="tv" class="w-5 h-5 text-orange-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-sm">Watch Short Ad</h3>
+                                        <p class="text-xs text-gray-300">Reward: 25-50 Coins</p>
+                                    </div>
+                                </div>
+                                <button id="watch-ad-btn" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl transition-colors text-sm">
+                                    Watch Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Click Reward Card -->
+                        <div class="ad-card green p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                                        <i data-lucide="mouse-pointer" class="w-5 h-5 text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-sm">Click Reward</h3>
+                                        <p class="text-xs text-gray-300">Instant: 10-30 Coins</p>
+                                    </div>
+                                </div>
+                                <button id="click-reward-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors text-sm">
+                                    Click Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Daily Stats - ছোট সংস্করণ -->
+                <div class="stats-card p-4">
+                    <h3 class="font-bold mb-3 text-sm">Today's Performance</h3>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div>
+                            <p class="text-xl font-bold text-blue-400" id="today-coins">0</p>
+                            <p class="text-xs text-gray-400">Coins Earned</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-green-400" id="today-ads">0</p>
+                            <p class="text-xs text-gray-400">Tasks Done</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-purple-400">$<span id="today-total">0</span></p>
+                            <p class="text-xs text-gray-400">Total Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Page -->
+            <div id="wallet-page" class="space-y-5 sub-page">
+                <div class="text-center mb-4">
+                    <h2 class="text-xl font-bold gradient-text">My Wallet</h2>
+                    <p class="text-sm text-gray-400">Manage your earnings</p>
+                </div>
+                
+                <div class="card-bg p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <p class="text-gray-400 text-xs">Available Balance</p>
+                            <p class="text-3xl font-bold">$<span id="wallet-coin-balance">0.00</span></p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-gray-400 text-xs">Total Earnings</p>
+                            <p class="text-xl font-bold text-green-400">$<span id="total-earnings">0.00</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div>
+                            <p class="text-gray-400 text-xs mb-2">
+                                Minimum Withdrawal: <span class="font-bold gradient-text" id="min-withdrawal-info">5000</span> Coins
+                            </p>
+                            <p class="text-gray-400 text-xs mb-3">
+                                Conversion: <span id="coin-value-info">1000 Coins = $1</span>
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <input id="withdraw-amount" type="number" placeholder="Enter amount in coins" class="w-full p-3 rounded-xl input-field text-sm">
+                            
+                            <select id="withdraw-method" class="w-full p-3 rounded-xl input-field text-sm">
+                                <option value="">Select Payment Method</option>
+                                <option value="Bkash">Bkash</option>
+                                <option value="Nagad">Nagad</option>
+                                <option value="Rocket">Rocket</option>
+                                <option value="PayPal">PayPal</option>
+                            </select>
+                            
+                            <div id="payment-details-container">
+                                <!-- Dynamic payment fields will appear here -->
+                            </div>
+                            
+                            <button id="withdraw-btn" class="w-full p-3 rounded-xl btn-accent text-base font-bold">
+                                Request Withdrawal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Withdrawal History -->
+                <div>
+                    <h3 class="text-base font-bold mb-3">Withdrawal History</h3>
+                    <div id="withdrawal-history-list" class="space-y-3">
+                        <div class="text-center py-6">
+                            <i data-lucide="history" class="w-10 h-10 text-gray-700 mx-auto mb-2"></i>
+                            <p class="text-gray-400 text-sm">No withdrawal history yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Refer & Earn Page -->
+            <div id="refer-page" class="space-y-5 sub-page">
+                <div class="text-center mb-4">
+                    <h2 class="text-xl font-bold gradient-text">Refer & Earn</h2>
+                    <p class="text-sm text-gray-400">Invite friends and earn together</p>
+                </div>
+                
+                <div class="card-bg p-5 rounded-2xl text-center">
+                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="users" class="w-8 h-8 text-white"></i>
+                    </div>
+                    
+                    <p class="text-gray-400 text-sm mb-2">Your Referral Code</p>
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10 mb-3">
+                        <span id="referral-code" class="text-2xl font-bold tracking-wider gradient-text">LOADING...</span>
+                        <button id="copy-code-btn" class="ml-3 p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="text-xs text-gray-400 mb-4">
+                        Earn <span class="font-bold gradient-text">$1</span> for each friend who joins!
+                    </p>
+                </div>
+                
+                <button id="share-btn" class="w-full p-3 rounded-xl btn-accent flex items-center justify-center gap-2 text-base font-bold">
+                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                    Share Your Code
+                </button>
+
+                <!-- Referral Stats -->
+                <div class="card-bg p-4 rounded-2xl">
+                    <h3 class="font-bold mb-3 text-sm">Your Referral Stats</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="text-center p-3 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-xl">
+                            <p class="text-2xl font-bold text-blue-400" id="total-referrals">0</p>
+                            <p class="text-xs text-gray-400">Total Referrals</p>
+                        </div>
+                        <div class="text-center p-3 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-xl">
+                            <p class="text-2xl font-bold text-green-400" id="referral-earnings">$0</p>
+                            <p class="text-xs text-gray-400">Total Earnings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enter Referral Code -->
+                <div class="card-bg p-4 rounded-2xl">
+                    <h3 class="font-bold mb-2 text-sm">Have a Referral Code?</h3>
+                    <p class="text-xs text-gray-400 mb-3">Enter your friend's code to get $1 bonus</p>
+                    <input id="enter-referral-code" type="text" placeholder="Enter referral code here" class="w-full p-3 rounded-xl input-field text-sm mb-3">
+                    <button id="apply-referral-btn" class="w-full p-3 rounded-xl border-2 border-blue-500 text-blue-500 hover:bg-blue-500/10 transition-colors font-bold text-sm">
+                        Apply Code & Get $1
+                    </button>
+                </div>
+
+                <!-- Referral Message -->
+                <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-4 rounded-2xl border border-blue-500/20">
+                    <p class="font-bold gradient-text text-sm mb-1">Best Money Making App! 💸</p>
+                    <p class="text-xs text-gray-300 mb-2">Earn $5+ daily by watching ads!</p>
+                    <p class="text-xs text-gray-400">Join now: https://t.me/webmoneybot_bot</p>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profile-page" class="space-y-5 sub-page">
+                <div class="text-center mb-4">
+                    <h2 class="text-xl font-bold gradient-text">My Profile</h2>
+                    <p class="text-sm text-gray-400">Manage your account</p>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 gradient-bg rounded-full p-1 mb-3">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
+                            <i data-lucide="user" class="w-10 h-10 text-white"></i>
+                        </div>
+                    </div>
+                    <h2 id="profile-name" class="text-xl font-bold">User Name</h2>
+                    <p id="profile-email" class="text-gray-400 text-sm">user@email.com</p>
+                    <div class="mt-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-semibold">
+                        Member since: <span id="member-since">Today</span>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="card-bg p-4 rounded-xl text-center">
+                        <p class="text-2xl font-bold text-green-400" id="total-ads-watched">0</p>
+                        <p class="text-xs text-gray-400">Total Tasks</p>
+                    </div>
+                    <div class="card-bg p-4 rounded-xl text-center">
+                        <p class="text-2xl font-bold text-purple-400" id="total-withdrawn">$0</p>
+                        <p class="text-xs text-gray-400">Withdrawn</p>
+                    </div>
+                </div>
+
+                <!-- Support & Community -->
+                <div>
+                    <h3 class="text-base font-bold mb-3">Support & Community</h3>
+                    
+                    <div class="space-y-2">
+                        <a id="link-telegram-btn" href="https://t.me/webmoneybot_bot" target="_blank" class="card-bg p-3 rounded-xl flex items-center justify-between hover:bg-white/5 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="send" class="w-5 h-5 text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-sm">Official Telegram</span>
+                                    <p class="text-xs text-gray-400">Get updates and support</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-400"></i>
+                        </a>
+
+                        <a id="link-facebook-btn" href="#" target="_blank" class="card-bg p-3 rounded-xl flex items-center justify-between hover:bg-white/5 transition-colors">
+                            <div class="flex items-center gap-2">
+                                <div class="w-10 h-10 bg-blue-700/20 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="facebook" class="w-5 h-5 text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-sm">Facebook Community</span>
+                                    <p class="text-xs text-gray-400">Join our community</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-gray-400"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="card-bg p-4 rounded-2xl">
+                    <h3 class="font-bold mb-3 text-sm">Account Settings</h3>
+                    <div class="space-y-3">
+                        <button id="change-password-btn" class="w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-left flex items-center justify-between text-sm">
+                            <span class="font-medium">Change Password</span>
+                            <i data-lucide="key" class="w-4 h-4 text-gray-400"></i>
+                        </button>
+                        
+                        <button id="logout-btn" class="w-full p-3 rounded-xl bg-red-500/20 hover:bg-red-500/30 transition-colors text-left flex items-center justify-between text-red-400 text-sm">
+                            <span class="font-medium">Logout</span>
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav fixed bottom-0 left-0 right-0 z-40 p-3">
+            <div class="grid grid-cols-4 gap-3">
+                <a href="#" class="nav-link flex flex-col items-center p-2 transition-colors active" data-page="home-page">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Home</span>
+                </a>
+                
+                <a href="#" class="nav-link flex flex-col items-center p-2 transition-colors" data-page="wallet-page">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Wallet</span>
+                </a>
+                
+                <a href="#" class="nav-link flex flex-col items-center p-2 transition-colors" data-page="refer-page">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Refer</span>
+                </a>
+                
+                <a href="#" class="nav-link flex flex-col items-center p-2 transition-colors" data-page="profile-page">
+                    <i data-lucide="user" class="w-5 h-5"></i>
+                    <span class="text-xs mt-1">Profile</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Custom Alert -->
+    <div id="custom-alert" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-slate-800 rounded-xl p-6 w-full max-w-sm text-center border border-slate-700">
+            <p id="alert-message" class="mb-6 text-gray-200 text-sm"></p>
+            <button id="alert-ok-btn" class="btn-accent px-6 py-2 rounded-lg w-full text-sm">OK</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-KqjNK8mqasHj19_d44dDmdTA762us4Q",
+            authDomain: "lifebook-e32b2.firebaseapp.com",
+            databaseURL: "https://lifebook-e32b2-default-rtdb.firebaseio.com",
+            projectId: "lifebook-e32b2",
+            storageBucket: "lifebook-e32b2.firebasestorage.app",
+            messagingSenderId: "668509068623",
+            appId: "1:668509068623:web:08d4156ef2a6cb7407393a",
+            measurementId: "G-SVFBRSFF7M"
+        };
+
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global variables
+        let currentUser = null;
+        let userData = null;
+        let appConfig = {};
+        let websiteTasks = [];
+        let dailyVisits = {};
+
+        // DOM Elements
+        const loader = document.getElementById('loader');
+        const authSection = document.getElementById('auth-section');
+        const appContainer = document.getElementById('app-container');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+        const logoutBtn = document.getElementById('logout-btn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const welcomeModal = document.getElementById('welcome-modal');
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Check auth state
+            onAuthStateChanged(auth, handleAuthStateChange);
+            
+            // Show loader first
+            setTimeout(() => {
+                loader.style.display = 'none';
+                
+                // Check if welcome modal was shown before
+                if (!localStorage.getItem('welcomeShown')) {
+                    welcomeModal.classList.remove('hidden');
+                }
+            }, 1500);
+        });
+
+        // Handle auth state changes
+        async function handleAuthStateChange(user) {
+            if (user) {
+                currentUser = user;
+                await fetchUserData();
+                
+                if (userData.isBlocked) {
+                    showAlert("Your account has been blocked.");
+                    await signOut(auth);
+                    return;
+                }
+                
+                await fetchAppConfig();
+                await fetchWebsiteTasks();
+                updateUI();
+                showApp();
+                
+                // Check for new notifications
+                checkNewNotifications();
+                
+                // Show welcome modal for first login
+                if (!localStorage.getItem('welcomeShown')) {
+                    setTimeout(() => {
+                        welcomeModal.classList.remove('hidden');
+                        localStorage.setItem('welcomeShown', 'true');
+                    }, 500);
+                }
+            } else {
+                currentUser = null;
+                userData = null;
+                showAuth();
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Auth navigation
+            showSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('signup-view').classList.remove('hidden');
+            });
+            
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('signup-view').classList.add('hidden');
+                document.getElementById('login-view').style.display = 'block';
+            });
+            
+            // Login button
+            loginBtn.addEventListener('click', async () => {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                if (!email || !password) {
+                    showAlert("Please enter email and password");
+                    return;
+                }
+                
+                loader.style.display = 'flex';
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } catch (error) {
+                    showAlert("Login failed: " + error.message);
+                } finally {
+                    loader.style.display = 'none';
+                }
+            });
+            
+            // Signup button
+            signupBtn.addEventListener('click', async () => {
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                
+                if (!name || !email || !password) {
+                    showAlert("Please fill in all fields");
+                    return;
+                }
+                
+                loader.style.display = 'flex';
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const userId = userCredential.user.uid;
+                    
+                    // Create user document
+                    await setDoc(doc(db, "users", userId), {
+                        name: name,
+                        email: email,
+                        balance: 0,
+                        coins: 0,
+                        totalEarned: 0,
+                        referralCode: generateReferralCode(),
+                        referredBy: null,
+                        referralCount: 0,
+                        referralEarnings: 0,
+                        totalAdsWatched: 0,
+                        totalWithdrawn: 0,
+                        dailyTaskCount: 0,
+                        lastTaskDate: null,
+                        isBlocked: false,
+                        createdAt: serverTimestamp(),
+                        lastLogin: serverTimestamp(),
+                        websiteVisits: {
+                            1: [],
+                            2: [],
+                            3: [],
+                            4: [],
+                            5: []
+                        }
+                    });
+                    
+                    showAlert("Account created successfully!");
+                } catch (error) {
+                    showAlert("Signup failed: " + error.message);
+                } finally {
+                    loader.style.display = 'none';
+                }
+            });
+            
+            // Logout button
+            logoutBtn.addEventListener('click', async () => {
+                await signOut(auth);
+            });
+            
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    navigateTo(pageId);
+                    
+                    // Update active state
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+            
+            // Withdraw button
+            document.getElementById('withdraw-btn').addEventListener('click', handleWithdrawal);
+            
+            // Home withdraw button
+            document.getElementById('home-withdraw-btn').addEventListener('click', () => {
+                navigateTo('wallet-page');
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelector('[data-page="wallet-page"]').classList.add('active');
+            });
+            
+            // Copy referral code
+            document.getElementById('copy-code-btn').addEventListener('click', copyReferralCode);
+            
+            // Share referral code
+            document.getElementById('share-btn').addEventListener('click', shareReferralCode);
+            
+            // Apply referral code
+            document.getElementById('apply-referral-btn').addEventListener('click', applyReferralCode);
+            
+            // Change password
+            document.getElementById('change-password-btn').addEventListener('click', changePassword);
+            
+            // Watch ad button
+            document.getElementById('watch-ad-btn').addEventListener('click', showAdReward);
+            
+            // Click reward button
+            document.getElementById('click-reward-btn').addEventListener('click', showClickReward);
+            
+            // Payment method change
+            document.getElementById('withdraw-method').addEventListener('change', updatePaymentDetails);
+            
+            // Alert OK button
+            document.getElementById('alert-ok-btn').addEventListener('click', () => {
+                document.getElementById('custom-alert').classList.add('hidden');
+            });
+            
+            // Welcome modal close
+            document.querySelector('#welcome-modal button').addEventListener('click', closeWelcomeModal);
+        }
+
+        // Close welcome modal
+        function closeWelcomeModal() {
+            welcomeModal.classList.add('hidden');
+            localStorage.setItem('welcomeShown', 'true');
+        }
+
+        // Show app
+        function showApp() {
+            authSection.classList.remove('active');
+            appContainer.classList.add('active');
+            navigateTo('home-page');
+        }
+
+        // Show auth
+        function showAuth() {
+            authSection.classList.add('active');
+            appContainer.classList.remove('active');
+        }
+
+        // Navigate to page
+        function navigateTo(pageId) {
+            document.querySelectorAll('.sub-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        window.navigateTo = navigateTo;
+
+        // Fetch user data
+        async function fetchUserData() {
+            if (!currentUser) return;
+            
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            
+            if (userSnap.exists()) {
+                userData = userSnap.data();
+                
+                // Reset daily visits if new day
+                const today = new Date().toISOString().split('T')[0];
+                if (userData.lastTaskDate !== today) {
+                    userData.dailyTaskCount = 0;
+                    userData.websiteVisits = {
+                        1: [],
+                        2: [],
+                        3: [],
+                        4: [],
+                        5: []
+                    };
+                    userData.lastTaskDate = today;
+                    
+                    // Update in database
+                    await updateDoc(userRef, {
+                        dailyTaskCount: 0,
+                        websiteVisits: userData.websiteVisits,
+                        lastTaskDate: today
+                    });
+                }
+                
+                dailyVisits = userData.websiteVisits || {
+                    1: [], 2: [], 3: [], 4: [], 5: []
+                };
+            }
+        }
+
+        // Fetch app config
+        async function fetchAppConfig() {
+            const configRef = doc(db, "config", "main");
+            const configSnap = await getDoc(configRef);
+            
+            if (configSnap.exists()) {
+                appConfig = configSnap.data();
+            } else {
+                // Default config
+                appConfig = {
+                    minWithdrawal: 5000,
+                    dailyAdLimit: 15,
+                    coinValueCoins: 1000,
+                    coinValueDollar: 1,
+                    paymentMethods: ["Bkash", "Nagad", "Rocket", "PayPal"],
+                    linkTelegram: "https://t.me/webmoneybot_bot",
+                    linkFacebook: "",
+                    linkAdmin: ""
+                };
+            }
+        }
+
+        // Fetch website tasks from admin config
+        async function fetchWebsiteTasks() {
+            const tasksRef = doc(db, "config", "websiteTasks");
+            const tasksSnap = await getDoc(tasksRef);
+            
+            if (tasksSnap.exists()) {
+                const data = tasksSnap.data();
+                websiteTasks = [];
+                
+                // Load all 5 websites
+                for (let i = 1; i <= 5; i++) {
+                    if (data[`websiteUrl${i}`]) {
+                        websiteTasks.push({
+                            id: i,
+                            name: data[`websiteName${i}`] || `Website ${i}`,
+                            url: data[`websiteUrl${i}`],
+                            reward: data[`websiteReward${i}`] || 50
+                        });
+                    }
+                }
+                
+                // If no tasks in config, create defaults
+                if (websiteTasks.length === 0) {
+                    for (let i = 1; i <= 5; i++) {
+                        websiteTasks.push({
+                            id: i,
+                            name: `Website ${i}`,
+                            url: `https://example${i}.com`,
+                            reward: 50
+                        });
+                    }
+                }
+                
+                loadWebsiteTasksUI();
+            }
+        }
+
+        // Load website tasks UI in banner style (ছোট সংস্করণ)
+        function loadWebsiteTasksUI() {
+            const container = document.getElementById('website-tasks-container');
+            container.innerHTML = '';
+            
+            let totalVisitsCount = 0;
+            let totalMaxVisits = 0;
+            
+            websiteTasks.forEach(task => {
+                const completedVisits = dailyVisits[task.id]?.length || 0;
+                const maxVisitsPerDay = 20;
+                const progress = (completedVisits / maxVisitsPerDay) * 100;
+                const totalEarnings = completedVisits * task.reward;
+                const maxEarnings = maxVisitsPerDay * task.reward;
+                
+                totalVisitsCount += completedVisits;
+                totalMaxVisits += maxVisitsPerDay;
+                
+                const isCompleted = completedVisits >= maxVisitsPerDay;
+                
+                const taskCard = document.createElement('div');
+                taskCard.className = `website-banner-card ${isCompleted ? 'completed' : ''}`;
+                taskCard.innerHTML = `
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="globe" class="w-4 h-4 text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base">${task.name}</h3>
+                                    <p class="text-xs text-gray-300">20 visits daily</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-green-400">${task.reward}</p>
+                                    <p class="text-xs text-gray-400">Coins</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-purple-400">${maxEarnings}</p>
+                                    <p class="text-xs text-gray-400">Max Daily</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg font-bold text-yellow-400">${totalEarnings}</p>
+                                    <p class="text-xs text-gray-400">Earned</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-gray-300">Progress: ${completedVisits}/20</span>
+                                    <span class="text-blue-400">${progress.toFixed(0)}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progress}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="visit-count-badge ${isCompleted ? 'completed' : ''} text-xs">
+                            <i data-lucide="${isCompleted ? 'check-circle' : 'target'}" class="w-3 h-3 inline mr-1"></i>
+                            ${completedVisits}/20
+                        </div>
+                        
+                        <button onclick="startWebsiteVisit(${task.id})" 
+                                class="btn-accent px-4 py-2 rounded-lg font-bold flex items-center gap-1 text-sm"
+                                ${isCompleted ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            ${isCompleted ? 'Completed' : 'Visit Now'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(taskCard);
+            });
+            
+            // Update total visits count
+            document.getElementById('total-visits-count').textContent = totalVisitsCount;
+            document.getElementById('total-max-visits').textContent = totalMaxVisits;
+            
+            lucide.createIcons();
+        }
+
+        // Start website visit - Single button for each website
+        window.startWebsiteVisit = async function(websiteId) {
+            if (!currentUser) return;
+            
+            // Get website details
+            const website = websiteTasks.find(w => w.id === websiteId);
+            if (!website) {
+                showAlert("Website not found!");
+                return;
+            }
+            
+            // Check if already completed all visits for today
+            const completedVisits = dailyVisits[websiteId]?.length || 0;
+            if (completedVisits >= 20) {
+                showAlert(`You have already completed all 20 visits for ${website.name} today!`);
+                return;
+            }
+            
+            // Get next visit number
+            const visitNumber = completedVisits + 1;
+            
+            // Show loading
+            showAlert(`Opening ${website.name}... Please wait 30 seconds to earn ${website.reward} coins.`);
+            
+            // Open website in new tab
+            window.open(website.url, '_blank');
+            
+            // Start countdown
+            let timeLeft = 30;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    completeWebsiteVisit(websiteId, visitNumber, website.reward);
+                }
+            }, 1000);
+        };
+
+        // Complete website visit
+        async function completeWebsiteVisit(websiteId, visitNumber, reward) {
+            if (!currentUser || !userData) return;
+            
+            try {
+                // Update daily visits
+                if (!dailyVisits[websiteId]) {
+                    dailyVisits[websiteId] = [];
+                }
+                dailyVisits[websiteId].push(visitNumber);
+                
+                // Update user data
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    websiteVisits: dailyVisits,
+                    dailyTaskCount: (userData.dailyTaskCount || 0) + 1,
+                    coins: (userData.coins || 0) + reward,
+                    balance: (userData.balance || 0) + reward,
+                    totalEarned: (userData.totalEarned || 0) + reward
+                });
+                
+                // Update local data
+                userData.coins = (userData.coins || 0) + reward;
+                userData.balance = (userData.balance || 0) + reward;
+                userData.totalEarned = (userData.totalEarned || 0) + reward;
+                userData.dailyTaskCount = (userData.dailyTaskCount || 0) + 1;
+                
+                // Update UI
+                updateUI();
+                loadWebsiteTasksUI();
+                
+                showAlert(`Congratulations! You earned ${reward} coins from ${websiteTasks.find(w => w.id === websiteId).name}! Visit ${visitNumber}/20 completed.`);
+            } catch (error) {
+                console.error("Error completing website visit:", error);
+                showAlert("Error completing visit. Please try again.");
+            }
+        }
+
+        // Update UI
+        function updateUI() {
+            if (!userData) return;
+            
+            // Calculate totals
+            const totalCoins = userData.coins || 0;
+            const totalDollars = totalCoins / 1000; // 1000 coins = $1
+            const totalEarnedDollars = (userData.totalEarned || 0) / 1000;
+            const totalWithdrawnDollars = (userData.totalWithdrawn || 0) / 1000;
+            
+            // Update balance displays
+            document.getElementById('coin-balance').textContent = totalDollars.toFixed(2);
+            document.getElementById('coin-balance-coins').textContent = totalCoins;
+            document.getElementById('wallet-coin-balance').textContent = totalDollars.toFixed(2);
+            
+            // Update profile info
+            document.getElementById('profile-name').textContent = userData.name || 'User';
+            document.getElementById('profile-email').textContent = userData.email || 'No email';
+            document.getElementById('referral-code').textContent = userData.referralCode || 'N/A';
+            
+            // Update stats
+            const totalVisits = Object.values(dailyVisits).reduce((sum, arr) => sum + (arr?.length || 0), 0);
+            const maxVisits = 5 * 20; // 5 websites × 20 visits each
+            
+            document.getElementById('tasks-done-count').textContent = userData.dailyTaskCount || 0;
+            document.getElementById('today-earnings').textContent = '$' + ((userData.dailyTaskCount || 0) * 50 / 1000).toFixed(2);
+            document.getElementById('tasks-left-count').textContent = `${maxVisits - totalVisits} tasks remaining`;
+            
+            document.getElementById('today-coins').textContent = (userData.dailyTaskCount || 0) * 50;
+            document.getElementById('today-ads').textContent = userData.dailyTaskCount || 0;
+            document.getElementById('today-total').textContent = ((userData.dailyTaskCount || 0) * 50 / 1000).toFixed(2);
+            
+            document.getElementById('total-ads-watched').textContent = userData.totalAdsWatched || 0;
+            document.getElementById('total-withdrawn').textContent = totalWithdrawnDollars.toFixed(2);
+            document.getElementById('total-earnings').textContent = totalEarnedDollars.toFixed(2);
+            document.getElementById('total-referrals').textContent = userData.referralCount || 0;
+            document.getElementById('referral-earnings').textContent = ((userData.referralEarnings || 0) / 1000).toFixed(2);
+            
+            // Update member since
+            if (userData.createdAt && userData.createdAt.toDate) {
+                document.getElementById('member-since').textContent = userData.createdAt.toDate().toLocaleDateString();
+            }
+            
+            // Update config info
+            document.getElementById('min-withdrawal-info').textContent = appConfig.minWithdrawal || 5000;
+            document.getElementById('coin-value-info').textContent = `${appConfig.coinValueCoins || 1000} Coins = $${appConfig.coinValueDollar || 1}`;
+            
+            // Update social links
+            if (appConfig.linkTelegram) {
+                document.getElementById('link-telegram-btn').href = appConfig.linkTelegram;
+            }
+            if (appConfig.linkFacebook) {
+                document.getElementById('link-facebook-btn').href = appConfig.linkFacebook;
+            }
+            
+            // Load withdrawal history
+            loadWithdrawalHistory();
+        }
+
+        // Load withdrawal history
+        async function loadWithdrawalHistory() {
+            if (!currentUser) return;
+            
+            const container = document.getElementById('withdrawal-history-list');
+            container.innerHTML = '<p class="text-gray-400 text-center py-8 text-sm">Loading...</p>';
+            
+            try {
+                const q = query(
+                    collection(db, "withdrawals"),
+                    where("userId", "==", currentUser.uid),
+                    orderBy("requestedAt", "desc"),
+                    limit(10)
+                );
+                
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="text-center py-6">
+                            <i data-lucide="history" class="w-10 h-10 text-gray-700 mx-auto mb-2"></i>
+                            <p class="text-gray-400 text-sm">No withdrawal history yet</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const date = data.requestedAt?.toDate().toLocaleDateString() || 'N/A';
+                    const status = data.status || 'pending';
+                    const coins = data.amount || 0;
+                    const dollars = (coins / 1000).toFixed(2);
+                    
+                    let statusColor = 'bg-yellow-500/20 text-yellow-400';
+                    let statusIcon = 'clock';
+                    
+                    if (status === 'approved') {
+                        statusColor = 'bg-green-500/20 text-green-400';
+                        statusIcon = 'check-circle';
+                    } else if (status === 'rejected') {
+                        statusColor = 'bg-red-500/20 text-red-400';
+                        statusIcon = 'x-circle';
+                    }
+                    
+                    const item = document.createElement('div');
+                    item.className = 'card-bg p-3 rounded-xl flex items-center justify-between';
+                    item.innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center">
+                                <i data-lucide="${statusIcon}" class="w-4 h-4 ${statusColor.includes('yellow') ? 'text-yellow-400' : statusColor.includes('green') ? 'text-green-400' : 'text-red-400'}"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm">$${dollars} - ${data.method || 'N/A'}</p>
+                                <p class="text-xs text-gray-400">${date}</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-1 rounded-full text-xs font-semibold ${statusColor} capitalize">
+                            ${status}
+                        </span>
+                    `;
+                    
+                    container.appendChild(item);
+                });
+            } catch (error) {
+                console.error("Error loading withdrawal history:", error);
+                container.innerHTML = '<p class="text-red-400 text-center py-6 text-sm">Error loading history</p>';
+            }
+        }
+
+        // Handle withdrawal
+        async function handleWithdrawal() {
+            if (!currentUser || !userData) return;
+            
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+            const method = document.getElementById('withdraw-method').value;
+            const paymentInput = document.getElementById('payment-detail-input');
+            const paymentDetail = paymentInput ? paymentInput.value.trim() : '';
+            
+            // Validation
+            if (!amount || amount <= 0) {
+                showAlert("Please enter a valid amount");
+                return;
+            }
+            
+            const minWithdrawal = appConfig.minWithdrawal || 5000;
+            if (amount < minWithdrawal) {
+                showAlert(`Minimum withdrawal is ${minWithdrawal} coins`);
+                return;
+            }
+            
+            if (amount > userData.balance) {
+                showAlert("Insufficient balance");
+                return;
+            }
+            
+            if (!method) {
+                showAlert("Please select a payment method");
+                return;
+            }
+            
+            if (!paymentDetail) {
+                showAlert(`Please enter your ${method} details`);
+                return;
+            }
+            
+            loader.style.display = 'flex';
+            try {
+                // Update user balance
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    balance: (userData.balance || 0) - amount,
+                    totalWithdrawn: (userData.totalWithdrawn || 0) + amount
+                });
+                
+                // Create withdrawal request
+                await addDoc(collection(db, "withdrawals"), {
+                    userId: currentUser.uid,
+                    userName: userData.name,
+                    userEmail: userData.email,
+                    amount: amount,
+                    method: method,
+                    paymentDetail: paymentDetail,
+                    status: "pending",
+                    requestedAt: serverTimestamp()
+                });
+                
+                // Update local data
+                userData.balance = (userData.balance || 0) - amount;
+                userData.totalWithdrawn = (userData.totalWithdrawn || 0) + amount;
+                
+                // Update UI
+                updateUI();
+                
+                // Clear form
+                document.getElementById('withdraw-amount').value = '';
+                if (paymentInput) paymentInput.value = '';
+                
+                showAlert("Withdrawal request submitted successfully!");
+            } catch (error) {
+                console.error("Error submitting withdrawal:", error);
+                showAlert("Error submitting withdrawal request: " + error.message);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // Update payment details based on method
+        function updatePaymentDetails() {
+            const method = document.getElementById('withdraw-method').value;
+            const container = document.getElementById('payment-details-container');
+            
+            if (!method) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let placeholder = '';
+            let inputType = 'text';
+            
+            switch(method) {
+                case 'Bkash':
+                case 'Nagad':
+                case 'Rocket':
+                    placeholder = `Enter your ${method} number`;
+                    inputType = 'number';
+                    break;
+                case 'PayPal':
+                    placeholder = 'Enter your PayPal email';
+                    inputType = 'email';
+                    break;
+                default:
+                    placeholder = `Enter your ${method} details`;
+            }
+            
+            container.innerHTML = `
+                <input id="payment-detail-input" type="${inputType}" 
+                       placeholder="${placeholder}" 
+                       class="w-full p-3 rounded-lg input-field text-sm mt-2">
+            `;
+        }
+
+        // Copy referral code
+        function copyReferralCode() {
+            const code = document.getElementById('referral-code').textContent;
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    showAlert("Referral code copied!");
+                })
+                .catch(err => {
+                    showAlert("Failed to copy code");
+                });
+        }
+
+        // Share referral code
+        function shareReferralCode() {
+            const code = document.getElementById('referral-code').textContent;
+            const message = `Join Webvisit Earn using my referral code: ${code}\n\nEarn money by watching ads and visiting websites!\n\nSign up: https://t.me/webmoneybot_bot`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Webvisit Earn - Earn Money Online',
+                    text: message,
+                    url: 'https://t.me/webmoneybot_bot'
+                });
+            } else {
+                navigator.clipboard.writeText(message)
+                    .then(() => {
+                        showAlert("Referral message copied! Share it with friends.");
+                    });
+            }
+        }
+
+        // Apply referral code
+        async function applyReferralCode() {
+            if (!currentUser || !userData) return;
+            
+            if (userData.referredBy) {
+                showAlert("You have already used a referral code");
+                return;
+            }
+            
+            const codeInput = document.getElementById('enter-referral-code');
+            const code = codeInput.value.trim().toUpperCase();
+            
+            if (!code) {
+                showAlert("Please enter a referral code");
+                return;
+            }
+            
+            if (code === userData.referralCode) {
+                showAlert("You cannot use your own code");
+                return;
+            }
+            
+            loader.style.display = 'flex';
+            try {
+                // Find user with this referral code
+                const usersRef = collection(db, "users");
+                const q = query(usersRef, where("referralCode", "==", code));
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    showAlert("Invalid referral code");
+                    return;
+                }
+                
+                const referrerDoc = snapshot.docs[0];
+                const referrerRef = doc(db, "users", referrerDoc.id);
+                const referrerData = referrerDoc.data();
+                
+                // Give referrer 1000 coins bonus
+                await updateDoc(referrerRef, {
+                    referralCount: (referrerData.referralCount || 0) + 1,
+                    referralEarnings: (referrerData.referralEarnings || 0) + 1000,
+                    balance: (referrerData.balance || 0) + 1000
+                });
+                
+                // Give new user 1000 coins bonus
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    referredBy: code,
+                    balance: (userData.balance || 0) + 1000,
+                    coins: (userData.coins || 0) + 1000
+                });
+                
+                // Update local data
+                userData.referredBy = code;
+                userData.balance = (userData.balance || 0) + 1000;
+                userData.coins = (userData.coins || 0) + 1000;
+                
+                // Update UI
+                updateUI();
+                codeInput.value = '';
+                
+                showAlert("Referral code applied! You received 1000 coins ($1) bonus!");
+            } catch (error) {
+                console.error("Error applying referral code:", error);
+                showAlert("Error applying referral code");
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // Show ad reward
+        function showAdReward() {
+            // Use the poponder ads script
+            if (typeof window.show_10537827 === 'function') {
+                window.show_10537827('interstitial').then(async () => {
+                    // Add coins after ad
+                    await addCoinsFromAd('interstitial');
+                }).catch(error => {
+                    console.error("Ad error:", error);
+                    showAlert("Ad not available. Please try again later.");
+                });
+            } else {
+                showAlert("Ad service not available. Please try again later.");
+            }
+        }
+
+        // Show click reward
+        function showClickReward() {
+            // Use the poponder ads script for popup
+            if (typeof window.show_10537827 === 'function') {
+                window.show_10537827('pop').then(async () => {
+                    // Add coins after click
+                    await addCoinsFromAd('click');
+                }).catch(error => {
+                    console.error("Ad error:", error);
+                    showAlert("Ad not available. Please try again later.");
+                });
+            } else {
+                showAlert("Ad service not available. Please try again later.");
+            }
+        }
+
+        // Add coins from ad
+        async function addCoinsFromAd(type) {
+            if (!currentUser || !userData) return;
+            
+            const rewards = {
+                'interstitial': { min: 25, max: 50 },
+                'click': { min: 10, max: 30 }
+            };
+            
+            const rewardRange = rewards[type] || rewards.interstitial;
+            const coins = Math.floor(Math.random() * (rewardRange.max - rewardRange.min + 1)) + rewardRange.min;
+            
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    balance: (userData.balance || 0) + coins,
+                    coins: (userData.coins || 0) + coins,
+                    totalEarned: (userData.totalEarned || 0) + coins,
+                    totalAdsWatched: (userData.totalAdsWatched || 0) + 1
+                });
+                
+                // Update local data
+                userData.balance = (userData.balance || 0) + coins;
+                userData.coins = (userData.coins || 0) + coins;
+                userData.totalEarned = (userData.totalEarned || 0) + coins;
+                userData.totalAdsWatched = (userData.totalAdsWatched || 0) + 1;
+                
+                // Update UI
+                updateUI();
+                
+                showAlert(`Congratulations! You earned ${coins} coins from watching an ad!`);
+            } catch (error) {
+                console.error("Error adding coins:", error);
+                showAlert("Error adding coins. Please try again.");
+            }
+        }
+
+        // Change password
+        function changePassword() {
+            showAlert("Password change feature coming soon!");
+        }
+
+        // Check for new notifications
+        async function checkNewNotifications() {
+            if (!currentUser || !userData) return;
+            
+            try {
+                const q = query(
+                    collection(db, "userNotifications"),
+                    where("userId", "==", currentUser.uid),
+                    where("read", "==", false)
+                );
+                
+                const snapshot = await getDocs(q);
+                const notificationDot = document.getElementById('notification-dot');
+                
+                if (!snapshot.empty) {
+                    notificationDot.style.display = 'block';
+                } else {
+                    notificationDot.style.display = 'none';
+                }
+            } catch (error) {
+                console.error("Error checking notifications:", error);
+            }
+        }
+
+        // Generate referral code
+        function generateReferralCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Show alert
+        function showAlert(message) {
+            document.getElementById('alert-message').textContent = message;
+            document.getElementById('custom-alert').classList.remove('hidden');
+        }
+        window.showAlert = showAlert;
+    </script>
+</body>
+</html>
